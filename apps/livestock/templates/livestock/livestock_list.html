@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Livestock</h1>
+    <ul>
+        {% for animal in livestock %}
+            <li>{{ animal.name }} - {{ animal.species }} - Acquired: {{ animal.acquisition_date }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'livestock_add' %}">Add Livestock</a>
+{% endblock %}

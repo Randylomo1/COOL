@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cool Shawara</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'crop_list' %}">Crops</a>
+        <a href="{% url 'livestock_list' %}">Livestock</a>
+    </nav>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <section class="dashboard-container">
+    <h2>Dashboard</h2>
+    <p>Welcome to your farm dashboard!</p>
+    <p>Here you can get a quick overview of your farm's status.</p>
+    <div class="dashboard-sections">
+      <section class="weather-section">
+        <h3>Weather</h3>
+        <p>Current weather: Sunny, 25°C</p>
+        <p>Forecast: Partly cloudy tomorrow</p>
+      </section>
+      <section class="yield-section">
+        <h3>Recent Yields</h3>
+        <ul>
+          <li>Wheat - 100kg</li>
+          <li>Tomatoes - 50kg</li>
+          <li>Eggs - 200 units</li>
+        </ul>
+      </section>
+    </div>
+  </section>
+{% endblock %}
