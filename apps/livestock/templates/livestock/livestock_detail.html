@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Livestock Detail</h1>
+    <p>Name: {{ animal.name }}</p>
+    <p>Species: {{ animal.species }}</p>
+    <p>Date of Birth: {{ animal.date_of_birth }}</p>
+    <a href="{% url 'livestock_update' pk=animal.pk %}">Edit</a>
+    <a href="{% url 'livestock_delete' pk=animal.pk %}">Delete</a>
+    <br>
+    <a href="{% url 'livestock_list' %}">Back to list</a>
+{% endblock %}

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Cool Shawara</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Cool Shawara{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav>
-        <a href="{% url 'crop_list' %}">Crops</a>
-        <a href="{% url 'livestock_list' %}">Livestock</a>
-    </nav>
+  {% include 'navbar.html' %}
+  <main>
     {% block content %}
     {% endblock %}
+  </main>
+  {% include 'footer.html' %}
 </body>
 </html>

@@ -4,7 +4,11 @@
     <h1>Crops</h1>
     <ul>
         {% for crop in crops %}
-            <li>{{ crop.name }} - Planted: {{ crop.planting_date }} - Harvest: {{ crop.harvest_date }}</li>
+            <li>
+                <a href="{% url 'crop_detail' pk=crop.pk %}">{{ crop.name }}</a> ({{ crop.variety }}) - Planted: {{ crop.planting_date }} - Estimated Harvest: {{ crop.estimated_harvest_date }}
+                <a href="{% url 'crop_update' pk=crop.pk %}">Edit</a>
+                <a href="{% url 'crop_delete' pk=crop.pk %}">Delete</a>
+            </li>
         {% endfor %}
     </ul>
     <a href="{% url 'crop_add' %}">Add Crop</a>

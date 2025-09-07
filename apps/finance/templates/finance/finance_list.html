@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Finance</h1>
+  <a href="{% url 'finance_create' %}">Add Record</a>
+  <ul>
+    {% for finance in finances %}
+      <li>
+        <a href="{% url 'finance_detail' pk=finance.pk %}">{{ finance.date }} - Income: {{ finance.income }} - Expenses: {{ finance.expenses }}</a>
+        <a href="{% url 'finance_update' pk=finance.pk %}">Edit</a>
+        <a href="{% url 'finance_delete' pk=finance.pk %}">Delete</a>
+      </li>
+    {% empty %}
+      <li>No records yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

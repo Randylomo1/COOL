@@ -4,7 +4,11 @@
     <h1>Livestock</h1>
     <ul>
         {% for animal in livestock %}
-            <li>{{ animal.name }} - {{ animal.species }} - Acquired: {{ animal.acquisition_date }}</li>
+            <li>
+                <a href="{% url 'livestock_detail' pk=animal.pk %}">{{ animal.name }}</a> - {{ animal.species }} - Acquired: {{ animal.acquisition_date }}
+                <a href="{% url 'livestock_update' pk=animal.pk %}">Edit</a>
+                <a href="{% url 'livestock_delete' pk=animal.pk %}">Delete</a>
+            </li>
         {% endfor %}
     </ul>
     <a href="{% url 'livestock_add' %}">Add Livestock</a>

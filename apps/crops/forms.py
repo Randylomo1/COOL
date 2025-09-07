@@ -4,4 +4,4 @@ from .models import Crop
 class CropForm(forms.ModelForm):
     class Meta:
         model = Crop
-        fields = ['name', 'planting_date', 'harvest_date']
+        fields = ['name', 'variety', 'planting_date', 'estimated_harvest_date']
