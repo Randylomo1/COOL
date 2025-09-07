@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coolshawara</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .splash-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .splash-content h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .splash-content p {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="splash-content">
+        <h1>
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.24 16.24C15.07 17.41 13.57 18 12 18C10.43 18 8.93 17.41 7.76 16.24C5.42 13.9 5.42 10.1 7.76 7.76C8.93 6.59 10.43 6 12 6C13.57 6 15.07 6.59 16.24 7.76C18.58 10.1 18.58 13.9 16.24 16.24Z" fill="#FFFFFF"/>
+                <path d="M12 8C10.9 8 10 8.9 10 10C10 11.1 10.9 12 12 12C13.1 12 14 11.1 14 10C14 8.9 13.1 8 12 8Z" fill="#4CAF50"/>
+            </svg>
+            Coolshawara
+        </h1>
+        <p>Prestige Farm Management, Redefined</p>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'home' %}";
+        }, 3000);
+    </script>
+</body>
+</html>

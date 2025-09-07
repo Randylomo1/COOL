@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Report Incident - Coolshawara{% endblock %}
+
+{% block content %}
+<section class="incident-form">
+  <div class="container">
+    <h2>{% if form.instance.pk %}Edit Incident{% else %}Report New Incident{% endif %}</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type-="submit" class="btn btn-primary">{% if form.instance.pk %}Save Changes{% else %}Submit Report{% endif %}</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

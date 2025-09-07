@@ -1,67 +1,42 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
-from apps.accounts.forms import CustomUserCreationForm
-from django.db.models import Sum
-from apps.crops.models import Crop
-from apps.livestock.models import Livestock
-from apps.inventory.models import InventoryItem
-from apps.finance.models import Finance
-from apps.workers.models import Worker
+from django.core.mail import send_mail
+from django.conf import settings
+from .forms import ContactForm
+
+def splash(request):
+    return render(request, 'splash.html')
 
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    return redirect('account_login')
 
-def dashboard(request):
-    total_crops = Crop.objects.count()
-    total_livestock = Livestock.objects.count()
-    total_inventory = InventoryItem.objects.count()
-    total_workers = Worker.objects.count()
+def about(request):
+    return render(request, 'about.html')
 
-    income = Finance.objects.filter(type='income').aggregate(total=Sum('amount'))['total'] or 0
-    expenses = Finance.objects.filter(type='expense').aggregate(total=Sum('amount'))['total'] or 0
-    net_profit = income - expenses
-
-    financials = {
-        'income': income,
-        'expenses': expenses,
-        'net_profit': net_profit,
-    }
-
-    context = {
-        'total_crops': total_crops,
-        'total_livestock': total_livestock,
-        'total_inventory': total_inventory,
-        'total_workers': total_workers,
-        'income': income,
-        'expenses': expenses,
-        'net_profit': net_profit,
-        'financials': financials,
-    }
-    return render(request, 'dashboard/dashboard.html', context)
-
-def login_view(request):
+def contact(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('dashboard')
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            message = form.cleaned_data['message']
+            send_mail(
+                f'Contact Form Submission from {name}',
+                message,
+                email,
+                [settings.ADMIN_EMAIL], 
+            )
+            return redirect('contact')
     else:
-        form = AuthenticationForm()
-    return render(request, 'registration/login.html', {'form': form})
+        form = ContactForm()
+    return render(request, 'contact.html', {'form': form})
 
-def logout_view(request):
-    logout(request)
-    return redirect('home')
+def faq(request):
+    return render(request, 'faq.html')
 
-def signup_view(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('dashboard')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+def terms(request):
+    return render(request, 'terms.html')
+
+def privacy(request):
+    return render(request, 'privacy.html')

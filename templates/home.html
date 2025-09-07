@@ -1,12 +1,48 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Welcome to Coolshawara Farm Management{% endblock %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1 class="display-4">Welcome to the Farm Management System</h1>
-        <p class="lead">This system helps you manage your farm's inventory and livestock efficiently.</p>
-        <hr class="my-4">
-        <p>You can add, view, edit, and delete items from your inventory and livestock records.</p>
+<div class="container-fluid px-0">
+    <!-- Hero Section -->
+    <div class="jumbotron jumbotron-fluid bg-primary text-white text-center d-flex align-items-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1560493676-04071c33b93a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; min-height: 60vh;">
+        <div class="container">
+            <h1 class="display-3">Prestige Farm Management, Redefined</h1>
+            <p class="lead">Your all-in-one solution for streamlined and efficient farm operations.</p>
+            <a class="btn btn-success btn-lg" href="{% url 'account_signup' %}">Get Started</a>
+            <a class="btn btn-outline-light btn-lg" href="{% url 'account_login' %}">Login</a>
+        </div>
     </div>
+
+    <!-- Features Section -->
+    <div class="container my-5">
+        <h2 class="text-center mb-5">Key Features</h2>
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Comprehensive Dashboard</h5>
+                        <p class="card-text">Get a complete overview of your farm's performance at a glance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Crop & Livestock Management</h5>
+                        <p class="card-text">Track planting, harvesting, and livestock health with ease.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Financial Tracking</h5>
+                        <p class="card-text">Monitor expenses, revenues, and profitability in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

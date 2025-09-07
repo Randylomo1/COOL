@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <h1>Livestock</h1>
-    <a href="{% url 'livestock_create' %}" class="btn btn-primary mb-3">Add Livestock</a>
+    <a href="{% url 'livestock_add' %}" class="btn btn-primary mb-3">Add Livestock</a>
     <ul class="list-group">
         {% for animal in livestock %}
             <li class="list-group-item">

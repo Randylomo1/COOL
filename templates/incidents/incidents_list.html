@@ -1,10 +1,41 @@
 {% extends 'base.html' %}
 
+{% block title %}Incidents - Coolshawara{% endblock %}
+
 {% block content %}
-  <h1>Incidents</h1>
-  <ul>
-    <li>Incident 1</li>
-    <li>Incident 2</li>
-    <li>Incident 3</li>
-  </ul>
+<section class="incidents-list">
+  <div class="container">
+    <h2>Incidents</h2>
+    <a href="{% url 'incident_create' %}" class="btn btn-primary">Report New Incident</a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for incident in incidents %}
+        <tr>
+          <td>{{ incident.get_incident_type_display }}</td>
+          <td>{{ incident.date }}</td>
+          <td>{{ incident.location }}</td>
+          <td>{{ incident.description }}</td>
+          <td>
+            <a href="{% url 'incident_update' incident.pk %}" class="btn btn-secondary">Edit</a>
+            <a href="{% url 'incident_delete' incident.pk %}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">No incidents reported yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
 {% endblock %}

@@ -27,38 +27,42 @@ h1, h2, h3, h4, h5 {
   --accent-light: #f4c542;
   --bg-light: #fdfdf6;
   --bg-dark: #1e1e1e;
-  --text-dark: #2e2e2e;
+  --text-dark: #212529;
   --text-light: #f9fafb;
   --shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* ===== NAVIGATION BAR ===== */
-.navbar {
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--text-light);
-  box-shadow: 0 2px 8px var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+/* ===== NAVIGATION & FOOTER ===== */
+.bg-primary-dark {
+    background-color: #1a2518 !important; /* A very dark green, almost black */
 }
 
-.navbar a {
-  color: var(--text-light);
-  text-decoration: none;
-  margin: 0 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  padding-bottom: 2px;
-  border-bottom: 2px solid transparent;
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--text-light) !important;
 }
 
-.navbar a:hover {
-  color: var(--accent-light);
-  border-color: var(--accent-light);
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--accent-light) !important;
+}
+
+/* Ensure dark dropdown text is bright and has a good hover effect */
+.dropdown-menu-dark .dropdown-item {
+    color: var(--text-light);
+}
+
+.dropdown-menu-dark .dropdown-item:hover {
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+}
+
+/* Make the dropdown divider more visible in the dark theme */
+.dropdown-menu-dark .dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer.bg-primary-dark {
+    color: var(--text-light);
 }
 
 /* ===== PAGE HEADER ===== */
@@ -169,12 +173,219 @@ h1, h2, h3, h4, h5 {
     background-color: var(--secondary);
 }
 
-/* ===== FOOTER ===== */
-.footer {
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  color: var(--text-light);
+/* ===== ABOUT PAGE ===== */
+.about-hero {
+  background: url('/static/images/about-farm.jpg') center/cover no-repeat;
+  height: 50vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-overlay {
+  background: rgba(30, 30, 30, 0.65);
+  padding: 3rem;
   text-align: center;
+  color: var(--text-light);
+  border-radius: 12px;
+}
+
+.about-content {
+  padding: 4rem 2rem;
+  background: var(--bg-light);
+}
+
+.about-container {
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+}
+
+.values-list {
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+}
+
+.values-list li {
+  font-size: 1.1rem;
+  margin: 0.75rem 0;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.team-card {
+  background: #fff;
   padding: 1.5rem;
-  margin-top: 3rem;
-  font-size: 0.95rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+}
+
+.team-card img {
+  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+/* ===== CONTACT PAGE ===== */
+.contact-hero {
+  background: url('/static/images/contact-farm.jpg') center/cover no-repeat;
+  height: 50vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-overlay {
+  background: rgba(30, 30, 30, 0.65);
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-light);
+  border-radius: 12px;
+}
+
+.contact-content {
+  padding: 4rem 2rem;
+  background: var(--bg-light);
+}
+
+.contact-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: var(--primary-dark);
+}
+
+/* ===== FAQ PAGE ===== */
+.faq-hero {
+  background: url('/static/images/faq-farm.jpg') center/cover no-repeat;
+  height: 40vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq-overlay {
+  background: rgba(30, 30, 30, 0.65);
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-light);
+  border-radius: 12px;
+}
+
+.faq-content {
+  padding: 4rem 2rem;
+  background: var(--bg-light);
+}
+
+.faq-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.faq-item {
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--primary);
+  padding-left: 1.5rem;
+}
+
+.faq-question {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.faq-answer {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-dark);
+}
+
+/* ===== LEGAL PAGES (TERMS/PRIVACY) ===== */
+.legal-hero {
+  background: url('/static/images/legal-farm.jpg') center/cover no-repeat;
+  height: 40vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legal-overlay {
+  background: rgba(30, 30, 30, 0.65);
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-light);
+  border-radius: 12px;
+}
+
+.legal-content {
+  padding: 4rem 2rem;
+  background: var(--bg-light);
+}
+
+.legal-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.legal-container h2 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.5rem;
+}
+
+.legal-container p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
 }

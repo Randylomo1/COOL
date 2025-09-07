@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <h1>Crops</h1>
-    <a href="{% url 'crop_create' %}" class="btn btn-primary mb-3">Add Crop</a>
+    <a href="{% url 'crop_add' %}" class="btn btn-primary mb-3">Add Crop</a>
     <ul class="list-group">
         {% for crop in crops %}
             <li class="list-group-item">

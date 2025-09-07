@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Coolshawara{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+<section class="about-hero">
+  <div class="about-overlay">
+    <h1>About Coolshawara</h1>
+    <p>Prestige Farm Management, Redefined</p>
+  </div>
+</section>
+
+<section class="about-content">
+  <div class="about-container">
+    <h2>Our Story</h2>
+    <p>
+      Coolshawara was born from a vision to bring prestige, elegance, and
+      precision into modern farming. We believe farmers deserve tools that
+      are not only powerful but also beautiful and easy to use.
+    </p>
+
+    <h2>Our Mission</h2>
+    <p>
+      To empower farmers with high-class digital solutions that simplify
+      management, increase productivity, and elevate the farming experience.
+    </p>
+
+    <h2>Our Values</h2>
+    <ul class="values-list">
+      <li>🌱 Innovation — embracing modern technology for smarter farming</li>
+      <li>🤝 Trust — building reliable and transparent systems</li>
+      <li>🌍 Sustainability — empowering farmers for future generations</li>
+      <li>🎖 Prestige — offering elegant, world-class experiences</li>
+    </ul>
+
+    <h2>Meet the Team</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="/static/images/founder.jpg" alt="Founder">
+        <h3>John Doe</h3>
+        <p>Founder & Visionary</p>
+      </div>
+      <div class="team-card">
+        <img src="/static/images/cto.jpg" alt="CTO">
+        <h3>Jane Smith</h3>
+        <p>CTO & Lead Developer</p>
+      </div>
+      <div class="team-card">
+        <img src="/static/images/agriexpert.jpg" alt="Agriculture Expert">
+        <h3>Michael Green</h3>
+        <p>Agriculture Expert</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
