@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Finance{% endblock %}
+
+{% block content %}
+  <h1>Finance</h1>
+  <a href="{% url 'finance_create' %}">Add Finance Record</a>
+  <ul>
+    {% for finance in finances %}
+      <li>
+        <a href="{% url 'finance_detail' finance.pk %}">{{ finance.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

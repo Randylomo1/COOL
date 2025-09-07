@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def timelogs_list(request):
+    return render(request, 'timelogs/timelogs_list.html')

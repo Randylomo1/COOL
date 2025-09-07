@@ -1,9 +1,12 @@
-<nav>
-  <a href="/">Home</a>
-  <a href="/workers">Workers</a>
-  <a href="/finance">Finance</a>
-  <a href="/inventory">Inventory</a>
-  <a href="/reports">Reports</a>
-  <a href="/crops">Crops</a>
-  <a href="/livestock">Livestock</a>
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="navbar-brand">Coolshawara</a>
+    <div>
+        <a href="{% url 'home' %}">Home</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="#">Logout</a>
+        {% else %}
+            <a href="#">Login</a>
+        {% endif %}
+    </div>
 </nav>

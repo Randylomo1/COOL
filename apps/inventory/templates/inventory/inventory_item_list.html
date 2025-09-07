@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
     <h1>Inventory</h1>
-    <a href="{% url 'inventory_item_create' %}">Add New Item</a>
-    <ul>
-        {% for item in items %}
-            <li>
+    <a href="{% url 'inventory_item_create' %}" class="btn btn-primary mb-3">Add Item</a>
+    <ul class="list-group">
+        {% for item in inventory_items %}
+            <li class="list-group-item">
                 <a href="{% url 'inventory_item_detail' item.pk %}">{{ item.name }}</a>
             </li>
         {% endfor %}
     </ul>
+</div>
 {% endblock %}

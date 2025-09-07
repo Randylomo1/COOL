@@ -1,14 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Crop Detail</h1>
-    <p>Name: {{ crop.name }}</p>
-    <p>Variety: {{ crop.variety }}</p>
-    <p>Planting Date: {{ crop.planting_date }}</p>
-    <p>Stage: {{ crop.stage }}</p>
-    <p>Notes: {{ crop.notes }}</p>
-    <a href="{% url 'crop_update' pk=crop.pk %}">Edit</a>
-    <a href="{% url 'crop_delete' pk=crop.pk %}">Delete</a>
-    <br>
-    <a href="{% url 'crop_list' %}">Back to list</a>
+<div class="container">
+    <h1>{{ crop.name }}</h1>
+    <p><strong>Planting Date:</strong> {{ crop.planting_date }}</p>
+    <p><strong>Harvesting Date:</strong> {{ crop.harvesting_date }}</p>
+    <a href="{% url 'crop_update' crop.pk %}" class="btn btn-secondary">Edit</a>
+    <a href="{% url 'crop_delete' crop.pk %}" class="btn btn-danger">Delete</a>
+</div>
 {% endblock %}

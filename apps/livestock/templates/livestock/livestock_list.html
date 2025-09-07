@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
     <h1>Livestock</h1>
-    <ul>
+    <a href="{% url 'livestock_create' %}" class="btn btn-primary mb-3">Add Livestock</a>
+    <ul class="list-group">
         {% for animal in livestock %}
-            <li>
-                <a href="{% url 'livestock_detail' pk=animal.pk %}">{{ animal.name }}</a> - {{ animal.species }} - Acquired: {{ animal.acquisition_date }}
-                <a href="{% url 'livestock_update' pk=animal.pk %}">Edit</a>
-                <a href="{% url 'livestock_delete' pk=animal.pk %}">Delete</a>
+            <li class="list-group-item">
+                <a href="{% url 'livestock_detail' animal.pk %}">{{ animal.name }}</a>
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'livestock_add' %}">Add Livestock</a>
+</div>
 {% endblock %}

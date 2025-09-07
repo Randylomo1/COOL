@@ -1,6 +1,88 @@
 {% extends 'base.html' %}
 
+{% block title %}Dashboard{% endblock %}
+
+{{ financials|json_script:"financials-data" }}
+
 {% block content %}
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard!</p>
+<div class="dashboard">
+    <div class="card">
+        <h3>Total Crops</h3>
+        <p>{{ total_crops }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Livestock</h3>
+        <p>{{ total_livestock }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Inventory</h3>
+        <p>{{ total_inventory }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Workers</h3>
+        <p>{{ total_workers }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Income</h3>
+        <p>${{ income|floatformat:2 }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Expenses</h3>
+        <p>${{ expenses|floatformat:2 }}</p>
+    </div>
+    <div class="card">
+        <h3>Net Profit</h3>
+        <p>${{ net_profit|floatformat:2 }}</p>
+    </div>
+</div>
+
+<div class="chart-container mt-4 card">
+    <h3 class="text-center">Financial Summary</h3>
+    <canvas id="financeChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const financialsData = JSON.parse(document.getElementById('financials-data').textContent);
+    const ctx = document.getElementById('financeChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Income', 'Expenses', 'Net Profit'],
+            datasets: [{
+                label: 'Amount in USD',
+                data: [financialsData.income, financialsData.expenses, financialsData.net_profit],
+                backgroundColor: [
+                    'rgba(46, 125, 50, 0.7)', // --primary
+                    'rgba(183, 28, 28, 0.7)', // a red for expenses
+                    'rgba(212, 160, 23, 0.7)'  // --accent
+                ],
+                borderColor: [
+                    'rgba(46, 125, 50, 1)',
+                    'rgba(183, 28, 28, 1)',
+                    'rgba(212, 160, 23, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return '$' + value;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
 {% endblock %}

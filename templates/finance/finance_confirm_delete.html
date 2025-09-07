@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Finance Record{% endblock %}
+
+{% block content %}
+  <h1>Delete Finance Record</h1>
+  <p>Are you sure you want to delete {{ finance.title }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+  </form>
+  <a href="{% url 'finance_list' %}">Back to list</a>
+{% endblock %}

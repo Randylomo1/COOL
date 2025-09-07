@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ worker.name }}{% endblock %}
+
+{% block content %}
+  <h1>{{ worker.name }}</h1>
+  <p>Position: {{ worker.position }}</p>
+  <p>Email: {{ worker.email }}</p>
+  <p>Phone: {{ worker.phone }}</p>
+  <a href="{% url 'worker_update' worker.pk %}">Edit</a>
+  <a href="{% url 'worker_delete' worker.pk %}">Delete</a>
+  <a href="{% url 'worker_list' %}">Back to list</a>
+{% endblock %}

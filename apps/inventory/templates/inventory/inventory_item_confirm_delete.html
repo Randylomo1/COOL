@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Confirm Delete</h1>
+<div class="container">
+    <h1>Delete Item</h1>
     <p>Are you sure you want to delete {{ item.name }}?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'inventory_item_detail' item.pk %}" class="btn btn-secondary">Cancel</a>
     </form>
-    <a href="{% url 'inventory_item_list' %}">Cancel</a>
+</div>
 {% endblock %}

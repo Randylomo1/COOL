@@ -2,25 +2,95 @@
 
 {% block title %}Dashboard{% endblock %}
 
+{{ financials|json_script:"financials-data" }}
+
 {% block content %}
-  <section class="dashboard-container">
-    <h2>Dashboard</h2>
-    <p>Welcome to your farm dashboard!</p>
-    <p>Here you can get a quick overview of your farm's status.</p>
-    <div class="dashboard-sections">
-      <section class="weather-section">
-        <h3>Weather</h3>
-        <p>Current weather: Sunny, 25°C</p>
-        <p>Forecast: Partly cloudy tomorrow</p>
-      </section>
-      <section class="yield-section">
-        <h3>Recent Yields</h3>
-        <ul>
-          <li>Wheat - 100kg</li>
-          <li>Tomatoes - 50kg</li>
-          <li>Eggs - 200 units</li>
-        </ul>
-      </section>
+<div class="container">
+    <h1 class="page-header">Dashboard</h1>
+    <div class="dashboard-grid">
+        <div class="card metric-card">
+            <h3>Total Crops</h3>
+            <p>{{ total_crops }}</p>
+        </div>
+        <div class="card metric-card">
+            <h3>Total Livestock</h3>
+            <p>{{ total_livestock }}</p>
+        </div>
+        <div class="card metric-card">
+            <h3>Inventory Items</h3>
+            <p>{{ total_inventory }}</p>
+        </div>
+        <div class="card metric-card">
+            <h3>Active Workers</h3>
+            <p>{{ total_workers }}</p>
+        </div>
+        <div class="card metric-card">
+            <h3>Total Income</h3>
+            <p>${{ income|floatformat:2 }}</p>
+        </div>
+        <div class="card metric-card">
+            <h3>Total Expenses</h3>
+            <p>${{ expenses|floatformat:2 }}</p>
+        </div>
+        <div class="card metric-card">
+            <h3>Net Profit</h3>
+            <p>${{ net_profit|floatformat:2 }}</p>
+        </div>
     </div>
-  </section>
+
+    <div class="card chart-card mt-4">
+        <h3 class="text-center">Financial Summary</h3>
+        <div class="chart-container">
+            <canvas id="financeChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const financialsData = JSON.parse(document.getElementById('financials-data').textContent);
+        const ctx = document.getElementById('financeChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Income', 'Expenses', 'Net Profit'],
+                datasets: [{
+                    label: 'Amount in USD',
+                    data: [financialsData.income, financialsData.expenses, financialsData.net_profit],
+                    backgroundColor: [
+                        'rgba(46, 125, 50, 0.7)',
+                        'rgba(216, 67, 21, 0.7)',
+                        'rgba(255, 179, 0, 0.7)'
+                    ],
+                    borderColor: [
+                        '#2e7d32',
+                        '#d84315',
+                        '#ffb300'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}

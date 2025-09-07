@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ finance.title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ finance.title }}</h1>
+  <p>Amount: {{ finance.amount }}</p>
+  <p>Date: {{ finance.date }}</p>
+  <a href="{% url 'finance_update' finance.pk %}">Edit</a>
+  <a href="{% url 'finance_delete' finance.pk %}">Delete</a>
+  <a href="{% url 'finance_list' %}">Back to list</a>
+{% endblock %}

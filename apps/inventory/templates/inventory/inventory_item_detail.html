@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container">
     <h1>{{ item.name }}</h1>
-    <p>Quantity: {{ item.quantity }}</p>
-    <p>Unit: {{ item.unit }}</p>
-    <a href="{% url 'inventory_item_update' item.pk %}">Edit</a>
-    <a href="{% url 'inventory_item_delete' item.pk %}">Delete</a>
+    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+    <p><strong>Price:</strong> {{ item.price }}</p>
+    <a href="{% url 'inventory_item_update' item.pk %}" class="btn btn-secondary">Edit</a>
+    <a href="{% url 'inventory_item_delete' item.pk %}" class="btn btn-danger">Delete</a>
+</div>
 {% endblock %}
