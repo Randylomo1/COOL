@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from apps.accounts.forms import CustomUserCreationForm
 from django.db.models import Sum
 from apps.crops.models import Crop
 from apps.livestock.models import Livestock
@@ -53,3 +54,14 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('dashboard')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
