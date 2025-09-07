@@ -9,7 +9,6 @@ urlpatterns = [
     path('accounts/login/', views.login_view, name='login'),
     path('accounts/logout/', views.logout_view, name='logout'),
     path('accounts/signup/', views.signup_view, name='signup'),
-    path('', include('apps.accounts.urls')),
     path('', include('apps.crops.urls')),
     path('', include('apps.dashboard.urls')),
     path('', include('apps.finance.urls')),
