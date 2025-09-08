@@ -18,6 +18,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'coolshawara.settings'
 
 # Set the virtual environment
 activate_this = '/home/coolshawara/.virtualenvs/coolshawara/bin/activate_this.py'
+import os
+if not os.path.exists(activate_this):
+    activate_this = '/home/coolshawara/COOL/venv/bin/activate_this.py'
 with open(activate_this) as file_:
     exec(file_.read(), dict(__file__=activate_this))
 
