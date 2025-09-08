@@ -6,9 +6,11 @@
 - [x] Check if the SQLite database file (db.sqlite3) exists in the project directory on the server.
 - [x] If the database file does not exist, create it by running `python manage.py migrate`.
 - [x] Ensure the database file and project directory have the correct permissions for the web server user.
-- [ ] Rerun the deployment script to verify that migrations and static file collection succeed without errors.
+- [x] Rerun the deployment script to verify that migrations and static file collection succeed without errors.
 - [ ] Test the Django application to confirm it can connect to the database and run properly.
 
 # Next Steps
-- Provide the user with the exact commands to run on PythonAnywhere to fix the group and permissions issues.
+- The deployment script has been updated with automatic permission fixes
+- Changes have been committed and pushed to GitHub
+- Deploy the updated script on PythonAnywhere to test the fixes
 - Assist with any further troubleshooting if errors persist.
