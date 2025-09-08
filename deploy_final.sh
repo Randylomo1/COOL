@@ -78,17 +78,24 @@ export DEBUG="${DEBUG:-False}"
 export DATABASE_URL="${DATABASE_URL:-sqlite:///$PROJECT_DIR/db.sqlite3}"
 print_status "Environment variables set"
 
-# Step 7: Run database migrations
+# Step 7: Ensure database file exists
+if [[ ! -f "$PROJECT_DIR/db.sqlite3" ]]; then
+    print_status "Creating database file..."
+    touch "$PROJECT_DIR/db.sqlite3"
+    print_status "Database file created"
+fi
+
+# Step 8: Run database migrations
 print_status "Running database migrations..."
 python manage.py migrate
 print_status "Database migrations completed"
 
-# Step 8: Collect static files
+# Step 9: Collect static files
 print_status "Collecting static files..."
 python manage.py collectstatic --noinput --clear
 print_status "Static files collected successfully"
 
-# Step 9: Create superuser (optional)
+# Step 10: Create superuser (optional)
 if [[ "$CREATE_SUPERUSER" == "true" ]]; then
     print_status "Creating superuser..."
     echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'admin123')" | python manage.py shell
@@ -96,11 +103,11 @@ if [[ "$CREATE_SUPERUSER" == "true" ]]; then
     print_warning "Please change the password after first login!"
 fi
 
-# Step 10: Run security check
+# Step 11: Run security check
 print_status "Running Django security check..."
 python manage.py check --deploy
 
-# Step 11: Test the application
+# Step 12: Test the application
 print_status "Testing application startup..."
 timeout 10 python manage.py runserver 127.0.0.1:8000 &
 SERVER_PID=$!
