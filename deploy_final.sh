@@ -85,6 +85,12 @@ if [[ ! -f "$PROJECT_DIR/db.sqlite3" ]]; then
     print_status "Database file created"
 fi
 
+# Step 7.5: Fix database file permissions and ownership
+print_status "Setting database file permissions..."
+chown coolshawara:coolshawara "$PROJECT_DIR/db.sqlite3" 2>/dev/null || chown coolshawara:users "$PROJECT_DIR/db.sqlite3" 2>/dev/null || print_warning "Could not set ownership, continuing..."
+chmod 664 "$PROJECT_DIR/db.sqlite3"
+print_status "Database file permissions set"
+
 # Step 8: Run database migrations
 print_status "Running database migrations..."
 python manage.py migrate
