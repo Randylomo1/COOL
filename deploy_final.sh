@@ -15,7 +15,7 @@ NC='\033[0m' # No Color
 
 # Configuration
 PROJECT_DIR="/home/coolshawara/COOL"
-VENV_DIR="$PROJECT_DIR/venv"
+VENV_DIR="/home/coolshawara/.virtualenvs/coolshawara"
 PYTHON_VERSION="python3.9"
 
 # Function to print colored output
@@ -48,60 +48,51 @@ mkdir -p static/css
 mkdir -p staticfiles
 print_status "Directories created successfully"
 
-# Step 2: Set up virtual environment
-if [[ ! -d "$VENV_DIR" ]]; then
-    print_status "Creating virtual environment..."
-    $PYTHON_VERSION -m venv "$VENV_DIR"
-    print_status "Virtual environment created"
-else
-    print_status "Virtual environment already exists"
-fi
-
-# Step 3: Activate virtual environment
+# Step 2: Activate virtual environment
 print_status "Activating virtual environment..."
 source "$VENV_DIR/bin/activate"
 print_status "Virtual environment activated"
 
-# Step 4: Upgrade pip
+# Step 3: Upgrade pip
 print_status "Upgrading pip..."
 pip install --upgrade pip
 
-# Step 5: Install requirements
+# Step 4: Install requirements
 print_status "Installing requirements..."
 pip install -r requirements.txt
 print_status "Requirements installed successfully"
 
-# Step 6: Set environment variables
+# Step 5: Set environment variables
 print_status "Setting environment variables..."
 export SECRET_KEY="${SECRET_KEY:-django-insecure-change-this-in-production}"
 export DEBUG="${DEBUG:-False}"
 export DATABASE_URL="${DATABASE_URL:-sqlite:///$PROJECT_DIR/db.sqlite3}"
 print_status "Environment variables set"
 
-# Step 7: Ensure database file exists
+# Step 6: Ensure database file exists
 if [[ ! -f "$PROJECT_DIR/db.sqlite3" ]]; then
     print_status "Creating database file..."
     touch "$PROJECT_DIR/db.sqlite3"
     print_status "Database file created"
 fi
 
-# Step 7.5: Fix database file permissions and ownership
+# Step 6.5: Fix database file permissions and ownership
 print_status "Setting database file permissions..."
 chown coolshawara:coolshawara "$PROJECT_DIR/db.sqlite3" 2>/dev/null || chown coolshawara:users "$PROJECT_DIR/db.sqlite3" 2>/dev/null || print_warning "Could not set ownership, continuing..."
 chmod 664 "$PROJECT_DIR/db.sqlite3"
 print_status "Database file permissions set"
 
-# Step 8: Run database migrations
+# Step 7: Run database migrations
 print_status "Running database migrations..."
 python manage.py migrate
 print_status "Database migrations completed"
 
-# Step 9: Collect static files
+# Step 8: Collect static files
 print_status "Collecting static files..."
 python manage.py collectstatic --noinput --clear
 print_status "Static files collected successfully"
 
-# Step 10: Create superuser (optional)
+# Step 9: Create superuser (optional)
 if [[ "$CREATE_SUPERUSER" == "true" ]]; then
     print_status "Creating superuser..."
     echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'admin123')" | python manage.py shell
@@ -109,11 +100,11 @@ if [[ "$CREATE_SUPERUSER" == "true" ]]; then
     print_warning "Please change the password after first login!"
 fi
 
-# Step 11: Run security check
+# Step 10: Run security check
 print_status "Running Django security check..."
 python manage.py check --deploy
 
-# Step 12: Test the application
+# Step 11: Test the application
 print_status "Testing application startup..."
 timeout 10 python manage.py runserver 127.0.0.1:8000 &
 SERVER_PID=$!
