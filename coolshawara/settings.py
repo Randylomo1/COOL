@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,22 +22,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-uc@sc@k9!^d1%e@#8!u@n&t#k#u#w*o@d*o#b@k#k#k#k#k#'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-uc@sc@k9!^d1%e@#8!u@n&t#k#u#w*o@d*o#b@k#k#k#k#k#')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['coolshawara.pythonanywhere.com']
 
-# Dynamic CSRF trusted origins for development
+# CSRF trusted origins for production and development
+CSRF_TRUSTED_ORIGINS = [
+    'https://coolshawara.pythonanywhere.com',
+    'https://*.pythonanywhere.com'
+]
+
+# Add development origins if in development environment
 if 'GITPOD_WORKSPACE_URL' in os.environ:
     hostname = os.environ.get('GITPOD_WORKSPACE_URL')[8:]
-    CSRF_TRUSTED_ORIGINS = [f'https://{hostname}', f'https://*.{hostname}']
+    CSRF_TRUSTED_ORIGINS.extend([f'https://{hostname}', f'https://*.{hostname}'])
 else:
-    CSRF_TRUSTED_ORIGINS = [
+    CSRF_TRUSTED_ORIGINS.extend([
         'https://8000-firebase-coolgit-1757248624080.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev',
         'https://9000-firebase-coolgit-1757248624080.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev'
-    ]
+    ])
 
 
 # Application definition
@@ -71,6 +78,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -105,10 +113,9 @@ WSGI_APPLICATION = 'coolshawara.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3')
+    )
 }
 
 
@@ -149,7 +156,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -171,6 +181,6 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ADMIN_EMAIL = 'admin@example.com'
 
-# Cookie Security for Development
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+# Cookie Security
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
